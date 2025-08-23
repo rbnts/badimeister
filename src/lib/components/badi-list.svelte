@@ -13,7 +13,10 @@
 
   const { title, badis, source }: BadiListProps = $props();
 
-  let filter = $state("");
+  let filter = $state.raw("");
+  const filteredBadis = $derived(badis.filter(
+    ({ name }) => name.toLowerCase().includes(filter.toLowerCase()))
+  );
 </script>
 
 <h2>{title}</h2>
@@ -24,8 +27,8 @@
   bind:value={filter}
 />
 <ul class="badi-list">
-  {#each badis as badi (badi.id)}
-    <li class={["badi-list-item", { hidden: !badi.name.toLowerCase().includes(filter.toLowerCase()) }]}>
+  {#each filteredBadis as badi (badi.id)}
+    <li class="badi-list-item">
       <Badi {...badi} />
     </li>
   {/each}
@@ -57,12 +60,6 @@
       :not(:has(.hidden)):has(&:hover) > &:not(:hover) {
         opacity: 0.5;
       }
-    }
-
-    &.hidden {
-      pointer-events: none;
-      user-select: none;
-      opacity: 0.1;
     }
   }
 

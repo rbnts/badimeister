@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { BadiResponseItem } from "$lib/shared/badi-response";
-
   const { id, name, temperature, open, url }: BadiResponseItem = $props();
 </script>
 
