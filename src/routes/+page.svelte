@@ -23,7 +23,7 @@
 <BadiList
   badis={data.bern}
   source={{
-    url: "https://www.sportamt-bern.ch/anlagetyp/freibad/",
+    url: "https://www.sportamt-bern.ch/sportanlagen/outdoor-anlagen/freibaeder",
     name: "Sportamt Bärn"
   }}
   title="Badis ds Bärn"

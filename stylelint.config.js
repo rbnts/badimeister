@@ -8,5 +8,11 @@ export default {
         ignorePseudoClasses: ["global"]
       }
     ]
-  }
+  },
+  ignoreFiles: [
+    "**/node_modules/**",
+    "**/build/**",
+    "**/.svelte-kit/**",
+    "**/.vercel/**"
+  ]
 };

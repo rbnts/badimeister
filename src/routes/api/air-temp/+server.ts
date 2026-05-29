@@ -85,3 +85,5 @@ export const GET: RequestHandler = async ({ fetch, setHeaders }) => {
   setHeaders({ "Cache-Control": "max-age=600, immutable" });
   return json(stations);
 };
+
+export const prerender = true;

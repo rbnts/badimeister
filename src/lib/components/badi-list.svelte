@@ -35,7 +35,7 @@
 </ul>
 <p>
   <small>
-    Date vo: <a href={source.url}>{source.name}</a>
+    Date vo: <a href={source.url} rel="external">{source.name}</a>
   </small>
 </p>
 

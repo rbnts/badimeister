@@ -10,7 +10,7 @@
     <span>Isch offe? {open ? "Iu 😎" : "Nei 😔"}</span>
   </p>
   <small>
-    <a href={url} rel="noopener noreferrer" target="_blank">Meh Details &rarr;</a>
+    <a href={url} rel="noopener noreferrer external" target="_blank">Meh Details &rarr;</a>
   </small>
 </article>
 
