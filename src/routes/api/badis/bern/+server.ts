@@ -38,7 +38,7 @@ const isBernFacility = (data: unknown): data is BernFacility => (
   && "external_apis" in data
 );
 
-export const GET: RequestHandler = async ({ setHeaders }) => {
+export const GET: RequestHandler = async () => {
   const freibadItems = await Promise.all(
     freibadIds.map(async (id) => {
       const response = await fetch(`${apiBase}/${id}`, {
@@ -66,10 +66,6 @@ export const GET: RequestHandler = async ({ setHeaders }) => {
       url: `${publicBase}/${facility.id}`,
       temperature
     } satisfies BadiResponseItem;
-  });
-
-  setHeaders({
-    "Cache-Control": "max-age=600, immutable"
   });
 
   return json(badis);

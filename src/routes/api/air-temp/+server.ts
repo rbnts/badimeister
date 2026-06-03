@@ -61,7 +61,7 @@ const isEndpointResponse = (data: unknown): data is EndpointResponse => (
   && Array.isArray(data.features)
 );
 
-export const GET: RequestHandler = async ({ fetch, setHeaders }) => {
+export const GET: RequestHandler = async ({ fetch }) => {
   const url = "https://data.geo.admin.ch/ch.meteoschweiz.messwerte-lufttemperatur-10min/ch.meteoschweiz.messwerte-lufttemperatur-10min_en.json";
   const response = await fetch(url);
   const data = await response.json();
@@ -82,7 +82,6 @@ export const GET: RequestHandler = async ({ fetch, setHeaders }) => {
     station => ["BER", "REH"].includes(station.id)
   );
 
-  setHeaders({ "Cache-Control": "max-age=600, immutable" });
   return json(stations);
 };
 

@@ -61,7 +61,7 @@ const parseZurichXml = (data: string) => {
   return isZurichData(parsed) ? parsed : null;
 };
 
-export const GET: RequestHandler = async ({ fetch, setHeaders }) => {
+export const GET: RequestHandler = async ({ fetch }) => {
   const url = "https://www.stadt-zuerich.ch/stzh/bathdatadownload";
   const xmlResponse = await fetch(url);
   const xmlText = await xmlResponse.text();
@@ -81,7 +81,6 @@ export const GET: RequestHandler = async ({ fetch, setHeaders }) => {
     url: bath.urlPage
   }));
 
-  setHeaders({ "Cache-Control": "max-age=600, immutable" });
   return json(badis);
 };
 
