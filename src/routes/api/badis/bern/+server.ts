@@ -29,13 +29,14 @@ const freibadIds = [
   "freibad-wyler"
 ] as const;
 
-const isBernFacility = (data: unknown): data is BernFacility =>
+const isBernFacility = (data: unknown): data is BernFacility => (
   typeof data === "object"
   && data !== null
   && "id" in data
   && "title" in data
   && "structured_opening_hours" in data
-  && "external_apis" in data;
+  && "external_apis" in data
+);
 
 export const GET: RequestHandler = async ({ setHeaders }) => {
   const freibadItems = await Promise.all(
@@ -45,7 +46,7 @@ export const GET: RequestHandler = async ({ setHeaders }) => {
           Accept: "application/json"
         }
       });
-      const data: unknown = await response.json();
+      const data = await response.json();
 
       return isBernFacility(data)
         ? data

@@ -5,13 +5,9 @@ description: Instructs the agent to consult official Svelte and SvelteKit docume
 
 # Svelte Documentation
 
-## Quick start
-
 **Do not rely on your training data for Svelte or SvelteKit APIs, patterns, or conventions.** Your training data may be out of date. Always fetch the relevant documentation from the official docs before writing or modifying any Svelte/SvelteKit code.
 
-## Workflows
-
-### Before editing Svelte components or SvelteKit routes
+## Before editing Svelte components or SvelteKit routes
 
 1. Identify the scope of your task:
    - Quick syntax check or simple pattern → use small docs
@@ -25,7 +21,7 @@ description: Instructs the agent to consult official Svelte and SvelteKit docume
 
 3. Review the relevant sections before proceeding with your changes.
 
-### Package-specific tasks
+## Package-specific tasks
 
 For focused work on a specific package, use the dedicated docs:
 - **Svelte core**: `https://svelte.dev/docs/svelte/llms.txt`

@@ -12,7 +12,6 @@ export default {
   ignoreFiles: [
     "**/node_modules/**",
     "**/build/**",
-    "**/.svelte-kit/**",
-    "**/.vercel/**"
+    "**/.svelte-kit/**"
   ]
 };
