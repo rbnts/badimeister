@@ -3,17 +3,21 @@ import { isBadiResponse } from "$lib/shared/is-badi-response";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ fetch }) => {
-  const airRequest = await fetch("/api/air-temp");
-  const airResponse = await airRequest.json();
-  const air = isAirResponse(airResponse) ? airResponse : [];
+  const [airResult, zurichResult, bernResult] = await Promise.all([
+    fetch("/api/air-temp"),
+    fetch("/api/badis/zurich"),
+    fetch("/api/badis/bern")
+  ]);
 
-  const zurichRequest = await fetch("/api/badis/zurich");
-  const zurichResponse = await zurichRequest.json();
-  const zurich = isBadiResponse(zurichResponse) ? zurichResponse : [];
+  const [airResponse, zurichResponse, bernResponse] = await Promise.all([
+    airResult.json(),
+    zurichResult.json(),
+    bernResult.json()
+  ]);
 
-  const bernRequest = await fetch("/api/badis/bern");
-  const bernResponse = await bernRequest.json();
-  const bern = isBadiResponse(bernResponse) ? bernResponse : [];
-
-  return { air, bern, zurich };
+  return {
+    air: isAirResponse(airResponse) ? airResponse : [],
+    zurich: isBadiResponse(zurichResponse) ? zurichResponse : [],
+    bern: isBadiResponse(bernResponse) ? bernResponse : []
+  };
 };

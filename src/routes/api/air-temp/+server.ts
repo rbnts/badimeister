@@ -2,7 +2,7 @@ import type { AirResponse } from "$lib/shared/air-response";
 import { json, text } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
 
-export interface EndpointResponse {
+interface EndpointResponse {
   crs: Crs;
   license: string;
   mapname: string;
@@ -14,28 +14,28 @@ export interface EndpointResponse {
   features: Feature[];
 }
 
-export interface Crs {
+interface Crs {
   type: string;
   properties: Properties;
 }
 
-export interface Properties {
+interface Properties {
   name: string;
 }
 
-export interface Feature {
+interface Feature {
   type: string;
   geometry: Geometry;
   id: string;
   properties: Station;
 }
 
-export interface Geometry {
+interface Geometry {
   type: string;
   coordinates: number[];
 }
 
-export interface Station {
+interface Station {
   station_name: string;
   station_symbol: number;
   value: number;
@@ -67,7 +67,7 @@ export const GET: RequestHandler = async ({ fetch }) => {
   const data = await response.json();
 
   if (!isEndpointResponse(data)) {
-    return text("invalid response format", {
+    return text("invalid response", {
       status: 500
     });
   }

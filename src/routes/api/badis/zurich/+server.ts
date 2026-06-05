@@ -68,7 +68,7 @@ export const GET: RequestHandler = async ({ fetch }) => {
   const data = parseZurichXml(xmlText);
 
   if (!data) {
-    return text("invalid data", {
+    return text("invalid response", {
       status: 500
     });
   }
