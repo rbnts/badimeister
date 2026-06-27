@@ -55,7 +55,7 @@ export const fetchAirTemperature = async (): Promise<string | null> => {
   const station = data.features.find(({ id }) => id === "BER");
 
   return station
-    ? `${Math.round(station.properties.value).toString()}${station.properties.unit}`
+    ? `${Math.round(station.properties.value).toString()} ${station.properties.unit}`
     : null;
 };
 
@@ -67,6 +67,7 @@ interface BernFacility {
   };
   external_apis: {
     items: {
+      title: string;
       value: string;
     }[];
   };
@@ -99,8 +100,12 @@ export const fetchBernBadis = async (): Promise<Badi[]> => Promise.all(
       throw new Error("Sportamt Bärn: unerwarteti Antwort");
     }
 
-    const temperature = data.external_apis.items.find(
-      ({ value }) => value.endsWith(" °C")
+    const { items } = data.external_apis;
+
+    const temperature = (
+      id === "freibad-marzili"
+        ? items.find(({ title }) => title === "Wasser Aare")
+        : items.find(({ value }) => value.endsWith(" °C"))
     )?.value ?? "Weiss nid";
 
     return {

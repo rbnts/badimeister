@@ -3,42 +3,63 @@
   const { name, temperature, open, url }: Badi = $props();
 </script>
 
-<article class="badi">
+<article class="badi card">
   <h3>{name}</h3>
-  <p>
-    <span>Wie warm? {temperature}</span>
-    <span>Isch offe? {open ? "Iu 😎" : "Nei 😔"}</span>
+
+  {#if open}
+    <p class="metric">{temperature}</p>
+  {/if}
+
+  <p class="status" class:open>
+    <span class="dot" aria-hidden="true"></span>
+    {open ? "Offe" : "Zue"}
   </p>
-  <small>
+
+  <small class="details">
     <a href={url} rel="noopener noreferrer external" target="_blank">Meh Details &rarr;</a>
   </small>
 </article>
 
 <style lang="scss">
   .badi {
-    overflow: clip;
-    border: 1px solid #222;
-    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    height: 100%;
+    padding: var(--space-lg);
   }
 
   h3 {
-    padding: 1rem;
-    background-color: #111;
-    border-bottom: 1px solid #222;
+    font-size: var(--text-lg);
   }
 
-  p {
-    padding: 1rem;
+  .status {
+    display: inline-flex;
+    gap: var(--space-xs);
+    align-items: center;
+    align-self: flex-start;
+    padding: var(--space-2xs) var(--space-sm);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    background-color: var(--color-muted-soft);
+    border-radius: var(--radius-full);
 
-    > span {
-      display: block;
+    &.open {
+      color: var(--color-open);
+      background-color: var(--color-open-soft);
     }
   }
 
-  small {
-    display: block;
-    padding: 1rem;
-    line-height: 1.1;
-    background-color: #111;
+  .dot {
+    width: 0.5em;
+    height: 0.5em;
+    background-color: currentcolor;
+    border-radius: 50%;
+  }
+
+  .details {
+    padding-top: var(--space-sm);
+    margin-top: auto;
   }
 </style>

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import "$styles/base.scss";
   import Badi from "$components/badi.svelte";
   import { type Badi as BadiData, fetchAirTemperature, fetchBernBadis } from "$lib/data";
+  import "$styles/base.scss";
 
   let air = $state<string | null>(null);
   let badis = $state<BadiData[]>([]);
@@ -32,27 +32,34 @@
 </script>
 
 <main>
-  <h1>Badimeister</h1>
-  <p>E gäbigi Übersicht für d Badis i de Stadt Bärn.</p>
+  <header class="hero">
+    <h1>Badimeister</h1>
+    <p class="lead">E gäbigi Übersicht für d Badis ir Stadt Bärn.</p>
+  </header>
 
   {#if loading}
-    <p>Bi am Chrampfe, gib mer es Momäntli...</p>
+    <p class="note">Bi am Chrampfe, gib mer es Momäntli...</p>
   {:else if failed}
-    <p>Het leider nid klappet, probiers es angers Mau. Excusez!</p>
+    <p class="note">Het leider nid klappet, probiers es angers Mau. Excusez!</p>
   {:else}
-    <p>Lufttämperatur z Bärn: {air ?? "Weiss nid"}</p>
+    <div class="air card">
+      <span class="air-label">Lufttämperatur z Bärn</span>
+      <span class="air-value metric">{air ?? "Weiss nid"}</span>
+    </div>
 
-    <h2>Badis ds Bärn</h2>
-    <ul class="badi-list">
-      {#each badis as badi (badi.id)}
-        <li class="badi-list-item">
-          <Badi {...badi} />
-        </li>
-      {/each}
-    </ul>
+    <section class="badis">
+      <h2>Badis ds Bärn</h2>
+      <ul class="badi-list">
+        {#each badis as badi (badi.id)}
+          <li class="badi-list-item">
+            <Badi {...badi} />
+          </li>
+        {/each}
+      </ul>
+    </section>
 
     {#if updated}
-      <p>
+      <p class="footer">
         <small>
           Stang vo {updated.toLocaleString("de-CH")}; Date vo
           <a href="https://opendata.swiss/de/dataset/messwerte-lufttemperatur-2-m-10-min-mittel">MeteoSchweiz</a>
@@ -65,26 +72,68 @@
 </main>
 
 <style lang="scss">
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .lead,
+  .note {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+  }
+
+  .lead {
+    max-width: 50ch;
+    text-wrap: balance;
+  }
+
+  .air {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs) var(--space-md);
+    align-items: baseline;
+    padding: var(--space-md) var(--space-lg);
+  }
+
+  .air-label {
+    color: var(--color-text-muted);
+  }
+
+  .air-value {
+    color: var(--color-accent);
+  }
+
+  .badis {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
   .badi-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(235px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+    gap: var(--space-md);
   }
 
   .badi-list-item {
-    contain: content;
-    transition:
-      opacity 0.2s ease-in-out,
-      translate 0.2s ease-in-out;
+    transition: translate 0.2s ease-in-out;
 
     @media (pointer: fine) {
       &:hover {
         translate: 0 -4px;
       }
-
-      .badi-list:hover &:not(:hover) {
-        opacity: 0.5;
-      }
     }
+  }
+
+  .footer {
+    line-height: 1.5;
   }
 </style>

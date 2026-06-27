@@ -1,4 +1,47 @@
-@forward "fonts";
+@use "@fontsource-utils/scss" as fontsource;
+@use "@fontsource-variable/inter/scss" as inter;
+@include fontsource.faces(
+  $metadata: inter.$metadata,
+  $subsets: "latin"
+);
+
+:root {
+  // colors
+  --color-bg: #e7f5fb;
+  --color-bg-deep: #d2ecf6;
+  --color-surface: #fff;
+  --color-border: #c9e7f1;
+  --color-text: #103b48;
+  --color-text-muted: #5c8593;
+  --color-accent: #f0663d;
+  --color-open: #18a86b;
+  --color-open-soft: #d7f3e7;
+  --color-muted-soft: #e3eef2;
+
+  // typography
+  --font-body: "Inter Variable", system-ui, sans-serif;
+  --text-sm: 0.875rem;
+  --text-md: 1.0625rem;
+  --text-lg: 1.375rem;
+  --text-xl: clamp(1.75rem, 4vw, 2.25rem);
+  --text-2xl: clamp(2.75rem, 8vw, 4.5rem);
+
+  // spacing
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+
+  // radii
+  --radius: 16px;
+  --radius-full: 999px;
+
+  // elevations
+  --shadow: 0 1px 2px rgb(16 59 72 / 6%), 0 10px 30px rgb(16 59 72 / 8%);
+}
 
 *,
 *::before,
@@ -10,20 +53,19 @@
 
 #app {
   display: contents;
-
-  main > * + * {
-    margin-top: 1em;
-  }
 }
 
 body {
-  width: min(69ch, 100% - 4rem);
-  margin: 2rem auto;
-  font-family: "Inter Variable", system-ui, sans-serif;
-  font-size: 1.1rem;
+  width: min(72ch, 100% - 2 * var(--space-lg));
+  min-height: 100dvh;
+  padding-block: var(--space-2xl);
+  margin-inline: auto;
+  font-family: var(--font-body);
+  font-size: var(--text-md);
   line-height: 1.6;
-  color: #ddd;
-  background-color: #000;
+  color: var(--color-text);
+  background-image: linear-gradient(180deg, var(--color-bg-deep), var(--color-bg));
+  background-repeat: no-repeat;
   text-rendering: optimizelegibility;
 }
 
@@ -33,8 +75,18 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Playfair Display Variable", serif;
+  font-weight: 700;
   line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+}
+
+h2 {
+  font-size: var(--text-xl);
 }
 
 ul,
@@ -43,14 +95,26 @@ ol {
 }
 
 a {
-  color: inherit;
+  color: var(--color-accent);
+  text-underline-offset: 0.2em;
 }
 
-input,
-button,
-select,
-textarea {
-  font: inherit;
-  font-size: 1rem;
-  outline-offset: 4px;
+small {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.metric {
+  font-size: var(--text-xl);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
 }

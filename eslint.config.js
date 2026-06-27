@@ -39,7 +39,7 @@ export default defineConfig(
       "svelte/block-lang": ["error", { script: "ts", style: "scss" }],
       "svelte/no-extra-reactive-curlies": "error",
       "svelte/no-inline-styles": "error",
-      "svelte/no-unused-class-name": ["error", { allowedClassNames: ["sr-only"] }],
+      "svelte/no-unused-class-name": ["error", { allowedClassNames: ["sr-only", "card", "metric"] }],
       "svelte/prefer-class-directive": "error",
       "svelte/prefer-const": "error",
       "svelte/prefer-derived-over-derived-by": "error",
