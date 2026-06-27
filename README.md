@@ -1,16 +1,16 @@
 # Badimeister
 
-> Your pocket guide to public outdoor pools ("Badis") in Bern and Zurich — with live water and air temps, so you always know if it's worth takin' a dip. 🏊
+> Your pocket guide to public outdoor pools ("Badis") in Bern — with live water and air temps, so you always know if it's worth takin' a dip. 🏊
 
 ## What does it do?
 
-Shows you a list of Badis in Bern and Zurich with:
+Shows you a list of all Badis in Bern with:
 
 - Real-time water temperature
 - Whether the pool is open or closed
 - Current air temperature from MeteoSwiss
 
-Filter by name, click through for details, and stop guessing if the water is freezing.
+The page itself is prerendered (static); the temperatures are fetched live in the browser on each visit, straight from the source APIs.
 
 ## License
 

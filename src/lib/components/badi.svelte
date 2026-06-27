@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { BadiResponseItem } from "$lib/shared/badi-response";
-  const { id, name, temperature, open, url }: BadiResponseItem = $props();
+  import type { Badi } from "$lib/data";
+  const { name, temperature, open, url }: Badi = $props();
 </script>
 
-<article class="badi" data-id={id}>
+<article class="badi">
   <h3>{name}</h3>
   <p>
-    <span>Wi warm? {temperature}</span>
+    <span>Wie warm? {temperature}</span>
     <span>Isch offe? {open ? "Iu 😎" : "Nei 😔"}</span>
   </p>
   <small>

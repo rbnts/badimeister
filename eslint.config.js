@@ -11,9 +11,6 @@ export default defineConfig(
     files: ["**/*.svelte", "**/*.svelte.ts"],
     languageOptions: {
       parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-        extraFileExtensions: [".svelte"],
         parser: ts.parser,
         svelteConfig
       },
@@ -25,37 +22,42 @@ export default defineConfig(
     },
     extends: [svelte.configs.recommended],
     rules: {
-      "unicorn/prefer-global-this": 0,
-      "unicorn/prevent-abbreviations": 0,
-      "@typescript-eslint/init-declarations": 0,
+      // svelte specifics
+      "unicorn/prefer-global-this": "off",
+      "unicorn/prevent-abbreviations": "off",
+      "@typescript-eslint/init-declarations": "off",
 
-      "svelte/no-add-event-listener": "error",
-      "svelte/no-top-level-browser-globals": "error",
-      "svelte/require-event-prefix": "error",
-      "svelte/no-target-blank": "error",
+      // correctness
       "svelte/button-has-type": "error",
+      "svelte/no-add-event-listener": "error",
+      "svelte/no-nested-style-tag": "error",
+      "svelte/no-target-blank": "error",
+      "svelte/no-top-level-browser-globals": "error",
+      "svelte/valid-style-parse": "error",
+
+      // best practices
+      "svelte/block-lang": ["error", { script: "ts", style: "scss" }],
+      "svelte/no-extra-reactive-curlies": "error",
+      "svelte/no-inline-styles": "error",
+      "svelte/no-unused-class-name": ["error", { allowedClassNames: ["sr-only"] }],
+      "svelte/prefer-class-directive": "error",
       "svelte/prefer-const": "error",
-      "svelte/block-lang": [
-        "error",
-        {
-          script: "ts",
-          style: "scss"
-        }
-      ],
-      "svelte/indent": "error",
+      "svelte/prefer-derived-over-derived-by": "error",
+      "svelte/prefer-style-directive": "error",
+      "svelte/require-event-prefix": "error",
+      "svelte/require-optimized-style-attribute": "error",
+      "svelte/shorthand-attribute": "error",
+      "svelte/shorthand-directive": "error",
+
+      // formatting
       "svelte/first-attribute-linebreak": "error",
       "svelte/html-closing-bracket-new-line": "error",
       "svelte/html-closing-bracket-spacing": "error",
       "svelte/html-quotes": "error",
       "svelte/html-self-closing": "error",
+      "svelte/indent": "error",
       "svelte/mustache-spacing": "error",
-      "svelte/no-extra-reactive-curlies": "error",
       "svelte/no-spaces-around-equal-signs-in-attribute": "error",
-      "svelte/prefer-class-directive": "error",
-      "svelte/prefer-style-directive": "error",
-      "svelte/require-optimized-style-attribute": "error",
-      "svelte/shorthand-attribute": "error",
-      "svelte/shorthand-directive": "error",
       "svelte/sort-attributes": "error",
       "svelte/spaced-html-comment": "error"
     }
