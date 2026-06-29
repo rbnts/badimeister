@@ -1,24 +1,27 @@
 <script lang="ts">
-  import type { Badi } from "$lib/data";
-  const { name, temperature, open, url }: Badi = $props();
+  import Card from "$components/card.svelte";
+  import type { UiBadi } from "$lib/badis";
+  const { name, temperature, open, time, url }: UiBadi = $props();
 </script>
 
-<article class="badi card">
-  <h3>{name}</h3>
+<Card>
+  <a class="badi" href={url} rel="noopener noreferrer external" target="_blank">
+    <h3>{name}</h3>
 
-  {#if open}
-    <p class="metric">{temperature}</p>
-  {/if}
+    {#if open}
+      <p class="metric">{temperature}</p>
+    {/if}
 
-  <p class="status" class:open>
-    <span class="dot" aria-hidden="true"></span>
-    {open ? "Offe" : "Zue"}
-  </p>
-
-  <small class="details">
-    <a href={url} rel="noopener noreferrer external" target="_blank">Meh Details &rarr;</a>
-  </small>
-</article>
+    <p class="status" class:open>
+      <span class="dot" aria-hidden="true"></span>
+      {#if time}
+        {open ? "Offe" : "Zue"} bis {time}
+      {:else}
+        {open ? "Offe" : "Zue"}
+      {/if}
+    </p>
+  </a>
+</Card>
 
 <style lang="scss">
   .badi {
@@ -27,6 +30,8 @@
     gap: var(--space-sm);
     height: 100%;
     padding: var(--space-lg);
+    color: inherit;
+    text-decoration: none;
   }
 
   h3 {
@@ -56,10 +61,5 @@
     height: 0.5em;
     background-color: currentcolor;
     border-radius: 50%;
-  }
-
-  .details {
-    padding-top: var(--space-sm);
-    margin-top: auto;
   }
 </style>

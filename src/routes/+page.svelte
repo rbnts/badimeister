@@ -1,23 +1,25 @@
 <script lang="ts">
   import Badi from "$components/badi.svelte";
-  import { type Badi as BadiData, fetchAirTemperature, fetchBernBadis } from "$lib/data";
+  import Card from "$components/card.svelte";
+  import { fetchAirTemperature } from "$lib/air";
+  import { type UiBadi, fetchBadis } from "$lib/badis";
   import "$styles/base.scss";
 
   let air = $state<string | null>(null);
-  let badis = $state<BadiData[]>([]);
+  let badis = $state<UiBadi[]>([]);
   let updated = $state<Date | null>(null);
   let loading = $state(true);
   let failed = $state(false);
 
   const load = async () => {
     try {
-      const [airTemperature, bernBadis] = await Promise.all([
+      const [airTemperatureData, badisData] = await Promise.all([
         fetchAirTemperature(),
-        fetchBernBadis()
+        fetchBadis()
       ]);
 
-      air = airTemperature;
-      badis = bernBadis;
+      air = airTemperatureData;
+      badis = badisData;
       updated = new Date();
     } catch {
       failed = true;
@@ -34,7 +36,7 @@
 <main>
   <header class="hero">
     <h1>Badimeister</h1>
-    <p class="lead">E gäbigi Übersicht für d Badis ir Stadt Bärn.</p>
+    <p class="lead">E gäbigi Übersicht für d Badis ir Stadt Bärn</p>
   </header>
 
   {#if loading}
@@ -42,13 +44,14 @@
   {:else if failed}
     <p class="note">Het leider nid klappet, probiers es angers Mau. Excusez!</p>
   {:else}
-    <div class="air card">
-      <span class="air-label">Lufttämperatur z Bärn</span>
-      <span class="air-value metric">{air ?? "Weiss nid"}</span>
-    </div>
+    <Card>
+      <div class="air">
+        <span class="air-label">Lufttämperatur</span>
+        <span class="air-value metric">{air ?? "Weiss nid"}</span>
+      </div>
+    </Card>
 
     <section class="badis">
-      <h2>Badis ds Bärn</h2>
       <ul class="badi-list">
         {#each badis as badi (badi.id)}
           <li class="badi-list-item">
@@ -61,9 +64,9 @@
     {#if updated}
       <p class="footer">
         <small>
-          Stang vo {updated.toLocaleString("de-CH")}; Date vo
+          Stang vom {updated.toLocaleString("de-CH")}; Date vo
           <a href="https://opendata.swiss/de/dataset/messwerte-lufttemperatur-2-m-10-min-mittel">MeteoSchweiz</a>
-          &amp;
+          und em
           <a href="https://www.sportamt-bern.ch/sportanlagen/outdoor-anlagen/freibaeder">Sportamt Bärn</a>
         </small>
       </p>
@@ -119,17 +122,16 @@
 
   .badi-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: var(--space-md);
   }
 
   .badi-list-item {
+    display: grid;
     transition: translate 0.2s ease-in-out;
 
-    @media (pointer: fine) {
-      &:hover {
-        translate: 0 -4px;
-      }
+    &:hover {
+      translate: 0 calc(-1 * var(--space-2xs));
     }
   }
 

@@ -8,7 +8,7 @@
 :root {
   // colors
   --color-bg: #e7f5fb;
-  --color-bg-deep: #d2ecf6;
+  --color-bg-deep: #9dd8ef;
   --color-surface: #fff;
   --color-border: #c9e7f1;
   --color-text: #103b48;
@@ -38,9 +38,6 @@
   // radii
   --radius: 16px;
   --radius-full: 999px;
-
-  // elevations
-  --shadow: 0 1px 2px rgb(16 59 72 / 6%), 0 10px 30px rgb(16 59 72 / 8%);
 }
 
 *,
@@ -55,34 +52,34 @@
   display: contents;
 }
 
+html {
+  min-height: 100dvh;
+  background-image: linear-gradient(var(--color-bg-deep), var(--color-bg));
+}
+
 body {
   width: min(72ch, 100% - 2 * var(--space-lg));
-  min-height: 100dvh;
-  padding-block: var(--space-2xl);
+  padding-block:
+    max(var(--space-2xl), env(safe-area-inset-top))
+    max(var(--space-2xl), env(safe-area-inset-bottom));
   margin-inline: auto;
   font-family: var(--font-body);
   font-size: var(--text-md);
   line-height: 1.6;
   color: var(--color-text);
-  background-image: linear-gradient(180deg, var(--color-bg-deep), var(--color-bg));
-  background-repeat: no-repeat;
   text-rendering: optimizelegibility;
 }
 
 h1,
 h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: 700;
+h3 {
   line-height: 1.1;
   letter-spacing: -0.02em;
 }
 
 h1 {
   font-size: var(--text-2xl);
-  font-weight: 800;
+  font-weight: 900;
 }
 
 h2 {
@@ -102,13 +99,6 @@ a {
 small {
   font-size: var(--text-sm);
   color: var(--color-text-muted);
-}
-
-.card {
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
 }
 
 .metric {
